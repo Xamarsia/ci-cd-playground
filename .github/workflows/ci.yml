@@ -1,0 +1,29 @@
+name: CI
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, close]
+jobs:
+  container-run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+      - uses: pre-commit/action@v3.0.1
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Install pip
+        run: apt install python3 python3-pip -y
+
+      - name: Install venv
+        run: apt install python3-venv -y
+
+      - name: Install all dependencies for the project
+        run: pnpm install
+
+      - name: Activate the CD virtual environment
+        run: . scripts/ci-envsetup.sh && pwd && ls && pre-commit run --all-files --hook-stage manual

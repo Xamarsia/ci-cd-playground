@@ -1,0 +1,21 @@
+{
+  "name": "ci-cd-playground",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "runArgs": ["--userns=keep-id:uid=1000,gid=1000"],
+  "updateRemoteUserUID": true,
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "mounts": [
+    "source=${localEnv:HOME}/.ssh,target=/home/node/.ssh,type=bind,consistency=cached"
+  ],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "christian-kohler.npm-intellisense",
+        "redhat.vscode-yaml"
+      ]
+    }
+  },
+  "postCreateCommand": "bash ./.devcontainer/postCreateCommands.sh"
+}

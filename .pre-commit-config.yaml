@@ -1,0 +1,22 @@
+exclude: |
+  (?x)^(
+      .*cache.*/.*|       # Exclude cache directories
+      .*venv.*/.*|        # Exclude virtual environment directories
+      .*pnpm-store.*/.*|  # Exclude dependency directories
+      .pnpm-lock.yaml
+  )$
+# fail_fast: true # stop running hooks after the first failure.
+default_install_hook_types:
+  - pre-commit
+  - pre-push
+repos:
+
+  - repo: local
+    hooks:
+      - id: run-echo
+        name: "**********************************Here*****************************"
+        language: system
+        entry: echo "**********************************Here*****************************************"
+        pass_filenames: false
+        always_run: true
+        stages: [pre-push, manual]
