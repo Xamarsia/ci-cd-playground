@@ -2,17 +2,26 @@ name: CI
 on:
   push:
   pull_request:
-    types: [opened, reopened, close]
+    # types: [opened, reopened, close]
 jobs:
   container-run:
     runs-on: ubuntu-latest
-    container: xamarsia/ci-cd-playground:0.0.1
+    container: xamarsia/ci-cd-playground:0.0.3
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-python@v4
         with:
           python-version: 3.x
+      - name: Fix
+        run: git config --global --add safe.directory '*'
       - uses: pre-commit/action@v3.0.1
+      - uses: pre-commit-ci/lite-action@v1.1.0
+        if: always()
+
+      # - uses: actions/setup-python@v4
+        # with:
+        #   python-version: 3.x
+      # - uses: pre-commit/action@v3.0.1
 
       # - name: Install pnpm
       #   run: npm install -g pnpm
@@ -23,8 +32,19 @@ jobs:
       # - name: Install venv
       #   run: sudo apt install python3-venv -y
 
-      - name: Install all dependencies for the project
-        run: pnpm install
+      # - name: Install all dependencies for the project
+      #   run: pnpm install
+
+
+
+
+
+#----------------------------------------------------
+      # - name: List of content
+      #   run: ls -a
+
+      # - name: Absolute path to current directory
+      #   run: pwd
 
       - name: Activate the CD virtual environment
-        run: . scripts/ci-envsetup.sh && pwd && ls && pre-commit run --all-files --hook-stage manual
+        run: . ./scripts/cd-envsetup.sh && pre-commit install && pre-commit run --all-files --hook-stage manual || cat /github/home/.cache/pre-commit/pre-commit.log
