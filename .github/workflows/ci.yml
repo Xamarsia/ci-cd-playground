@@ -17,6 +17,10 @@ jobs:
       - name: Fix
         run: git config --global --add safe.directory '*'
       - uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --all-files --hook-stage manual
+
+
 
 #----------------------------------------------------
 
