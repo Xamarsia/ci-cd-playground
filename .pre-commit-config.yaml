@@ -1,3 +1,5 @@
+# .pre-commit-config.yaml
+
 exclude: |
   (?x)^(
       .*cache.*/.*|       # Exclude cache directories
@@ -6,9 +8,9 @@ exclude: |
       .pnpm-lock.yaml
   )$
 # fail_fast: true # stop running hooks after the first failure.
-# default_install_hook_types:
-#   - pre-commit
-#   - pre-push
+default_install_hook_types:
+  - pre-commit
+  - pre-push
 repos:
 
   - repo: local
@@ -19,4 +21,4 @@ repos:
         entry: echo "**********************************Here*****************************************"
         pass_filenames: false
         always_run: true
-        # stages: [pre-push, manual]
+        stages: [pre-push, manual]
