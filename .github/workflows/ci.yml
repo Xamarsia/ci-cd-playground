@@ -1,8 +1,10 @@
+# .github/workflows/ci.yml
+
 name: CI
 on:
   push:
   pull_request:
-    # types: [opened, reopened, close]
+    types: [opened, reopened, close]
 jobs:
   container-run:
     runs-on: ubuntu-latest
@@ -15,36 +17,8 @@ jobs:
       - name: Fix
         run: git config --global --add safe.directory '*'
       - uses: pre-commit/action@v3.0.1
-      - uses: pre-commit-ci/lite-action@v1.1.0
-        if: always()
-
-      # - uses: actions/setup-python@v4
-        # with:
-        #   python-version: 3.x
-      # - uses: pre-commit/action@v3.0.1
-
-      # - name: Install pnpm
-      #   run: npm install -g pnpm
-
-      # - name: Install pip
-      #   run: sudo apt install python3 python3-pip -y
-
-      # - name: Install venv
-      #   run: sudo apt install python3-venv -y
-
-      # - name: Install all dependencies for the project
-      #   run: pnpm install
-
-
-
-
 
 #----------------------------------------------------
-      # - name: List of content
-      #   run: ls -a
 
-      # - name: Absolute path to current directory
-      #   run: pwd
-
-      - name: Activate the CD virtual environment
-        run: . ./scripts/cd-envsetup.sh && pre-commit install && pre-commit run --all-files --hook-stage manual || cat /github/home/.cache/pre-commit/pre-commit.log
+      # - name: Activate the CD virtual environment
+      #   run: . ./scripts/cd-envsetup.sh && pre-commit install && pre-commit run --all-files --hook-stage manual || cat /github/home/.cache/pre-commit/pre-commit.log
